@@ -1,19 +1,19 @@
 <?php
 /*
-Plugin Name: Forms
-Plugin URI: https://github.com/KubeeCMS/kcms-forms
-Description: Easily create web forms and manage form entries within the KCMS admin.
+Plugin Name: Gravity Forms
+Plugin URI: https://gravityforms.com
+Description: Easily create web forms and manage form entries within the WordPress admin.
 Version: 2.5.13
 Requires at least: 4.0
 Requires PHP: 5.6
-Author: Kubee
-Author URI: https://github.com/KubeeCMS/
-License: MIT
+Author: Gravity Forms
+Author URI: https://gravityforms.com
+License: GPL-2.0+
 Text Domain: gravityforms
 Domain Path: /languages
 
 ------------------------------------------------------------------------
-Copyright (c) 2020 KubeeCMS
+Copyright 2009-2021 Rocketgenius, Inc.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
