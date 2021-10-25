@@ -3,7 +3,7 @@
 Plugin Name: Forms
 Plugin URI: https://github.com/KubeeCMS/kcms-forms
 Description: Easily create web forms and manage form entries within the KCMS admin.
-Version: 2.5.13
+Version: 2.5.14
 Requires at least: 4.0
 Requires PHP: 5.6
 Author: Kubee
@@ -35,6 +35,7 @@ use Gravity_Forms\Gravity_Forms\Libraries\Dom_Parser;
 update_option( 'rg_gforms_key', 'activated' );
 update_option( 'gform_pending_installation', false );
 delete_option( 'rg_gforms_message' );
+
 
 //------------------------------------------------------------------------------------------------------------------
 //---------- Gravity Forms License Key -----------------------------------------------------------------------------
@@ -229,7 +230,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.5.13';
+	public static $version = '2.5.14';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -1056,7 +1057,15 @@ class GFForms {
 
 		global $wp_scripts;
 
-		$wp_required_scripts = array( 'admin-bar', 'common', 'jquery-color', 'utils', 'svg-painter' );
+		$wp_required_scripts = array(
+			'admin-bar',
+			'common',
+			'jquery-color',
+			'utils',
+			'svg-painter',
+			'mce-view' // added in 2.5.13 to support Media Uploads in no-conflict mode
+		);
+
 		$gf_required_scripts = array(
 			'common'                     => array( 'gform_tooltip_init', 'sack' ),
 			'gf_edit_forms'              => array(
