@@ -166,11 +166,16 @@ class GFCommon {
 	}
 
 	public static function recursive_add_index_file( $dir ) {
-		if ( ! is_dir( $dir ) || is_link( $dir ) ) {
+		$dir = untrailingslashit( $dir );
+		if ( ! is_dir( $dir ) || ! wp_is_writable( $dir ) || is_link( $dir ) ) {
+			GFCommon::log_debug( __METHOD__ . '(): Path ' . $dir . ' is not a valid path or is not writable' );
+
 			return;
 		}
 
 		if ( ! ( $dp = opendir( $dir ) ) ) {
+			GFCommon::log_debug( __METHOD__ . '(): Unable to open directory: ' . $dir );
+
 			return;
 		}
 
@@ -178,7 +183,10 @@ class GFCommon {
 		set_error_handler( '__return_false', E_ALL );
 
 		//creates an empty index.html file
-		if ( $f = fopen( $dir . '/index.html', 'w' ) ) {
+		$index_file_path = $dir . '/index.html';
+		GFCommon::log_debug( __METHOD__ . '(): Adding file: ' . $index_file_path );
+
+		if ( $f = fopen( $index_file_path, 'w' ) ) {
 			fclose( $f );
 		}
 
@@ -2896,9 +2904,7 @@ Content-Type: text/html;
 	}
 
 	public static function get_key_info( $key ) {
-		$key_info["is_active"] = true;
 
-		return $key_info;
 		$options            = array( 'method' => 'POST', 'timeout' => 3 );
 		$options['headers'] = array(
 			'Content-Type' => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
@@ -2914,7 +2920,6 @@ Content-Type: text/html;
 
 		$key_info = unserialize( trim( $raw_response['body'] ) );
 
-		$key_info["is_active"] = true;
 		return $key_info ? $key_info : array();
 	}
 
@@ -3150,7 +3155,6 @@ Content-Type: text/html;
 	}
 
 	public static function cache_remote_message() {
-		return;
 		//Getting version number
 		$key                = GFCommon::get_key();
 		$body               = "key=$key";

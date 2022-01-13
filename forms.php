@@ -3,7 +3,7 @@
 Plugin Name: KCMS Forms
 Plugin URI: https://github.com/KubeeCMS/kcms-forms
 Description: Easily create web forms and manage form entries within the KCMS admin.
-Version: 2.5.15.2
+Version: 2.5.16
 Requires at least: 5.0
 Requires PHP: 7.4
 Author: Kubee
@@ -32,15 +32,16 @@ along with this program.  If not, see http://www.gnu.org/licenses.
 use Gravity_Forms\Gravity_Forms\TranslationsPress_Updater;
 use Gravity_Forms\Gravity_Forms\Libraries\Dom_Parser;
 
-update_option( 'rg_gforms_key', 'activated' );
-update_option( 'gform_pending_installation', false );
-delete_option( 'rg_gforms_message' );
-
 //------------------------------------------------------------------------------------------------------------------
 //---------- Gravity Forms License Key -----------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
 // If you hardcode a Gravity Forms License Key here, it will automatically populate on activation.
 $gf_license_key = '';
+
+update_option( 'rg_gforms_key', 'activated' );
+update_option( 'gform_pending_installation', false );
+delete_option( 'rg_gforms_message' );
+
 
 //-- OR ---//
 
@@ -229,7 +230,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.5.15.2';
+	public static $version = '2.5.16';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -753,6 +754,7 @@ class GFForms {
 	 * @access public
 	 */
 	public static function activation_hook() {
+		self::register_services();
 		self::init_background_upgrader();
 		gf_upgrade()->maybe_upgrade();
 	}
