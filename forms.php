@@ -3,7 +3,7 @@
 Plugin Name: KCMS Forms
 Plugin URI: https://github.com/KubeeCMS/kcms-forms
 Description: Easily create web forms and manage form entries within the KCMS admin
-Version: 2.6.1
+Version: 2.6.1.1
 Requires at least: 5.0
 Requires PHP: 7.4
 Author: Kubee
@@ -228,7 +228,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.6.1';
+	public static $version = '2.6.1.1';
 
 	/**
 	 * Handles background upgrade tasks.
