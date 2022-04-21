@@ -1,7 +1,22 @@
+### 2.6.1.3
+- Fixed an issue where the submit button settings are reset to their default values when saving the form settings.
+- Fixed the "Allowed memory exhausted in gravityforms.php on line 147" fatal error that is impacting a small number of sites.
+- Fixed an issue with the license detail section displaying an inaccurate renewal date for certain licenses.
+- API: Added the gform_rule_source_value filter to allow the source value of a conditional logic rule to be filtered.
+
+
+### 2.6.1.2
+- Added security enhancements.
+- Fixed a few dozen PHP 8.1 deprecation notices. Note: WordPress won’t be compatible with PHP 8.1 until version 6.0 at the earliest, so there are still many notices from WP functions.
+- Fixed a bug that prevents users without form editing capabilities from exporting entries.
+- Fixed a bug that prevents editing the First Name and City sublabels.
+- Fixed a fatal error that occurs on plugin activation with WordPress 4.9 and earlier.
+
+
 ### 2.6.1.1
+- Added an enhancement to the AJAX save process in the form editor that increases performance significantly, especially for forms that contain a large number of fields.
 - Fixed a bug that causes form editor settings panels to close when any button in the sidebar is clicked.
 - Fixed an issue where the export form link in the dialog that appears after form save error opens the export page in the same tab so changes were lost.
-- Added an enhancement to the AJAX save process in the form editor that increases performance significantly, especially for forms that contain a large number of fields.
 - Fixed an issue where field values that contain non-latin characters are not displayed correctly after AJAX save in the form editor.
 
 
