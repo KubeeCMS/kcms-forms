@@ -5,7 +5,7 @@ Plugin URI: https://github.com/KubeeCMS/kcms-forms
 Description: Easily create web forms and manage form entries within the KCMS admin
 Version: 2.6.3.3
 Requires at least: 5.0
-Requires PHP: 7.4
+Requires PHP: 8.0
 Author: Kubee
 Author URI: https://github.com/KubeeCMS/
 License: MIT
