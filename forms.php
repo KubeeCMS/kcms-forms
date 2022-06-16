@@ -3,7 +3,7 @@
 Plugin Name: KCMS Forms
 Plugin URI: https://github.com/KubeeCMS/kcms-forms
 Description: Easily create web forms and manage form entries within the KCMS admin
-Version: 2.6.1.3
+Version: 2.6.3.3
 Requires at least: 5.0
 Requires PHP: 7.4
 Author: Kubee
@@ -28,9 +28,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see http://www.gnu.org/licenses.
 */
-update_option( 'rg_gforms_key', 'activated' );
-update_option( 'gform_pending_installation', false );
-delete_option( 'rg_gforms_message' );
+
 use Gravity_Forms\Gravity_Forms\TranslationsPress_Updater;
 use Gravity_Forms\Gravity_Forms\Libraries\Dom_Parser;
 
@@ -238,7 +236,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.6.1.3';
+	public static $version = '2.6.3.3';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -841,7 +839,7 @@ class GFForms {
 			$form_id = GFFormDisplay::is_submit_form_id_valid();
 
 			if ( $form_id ) {
-				GFFormDisplay::process_form( $form_id );
+				GFFormDisplay::process_form( $form_id, GFFormDisplay::SUBMISSION_INITIATED_BY_WEBFORM );
 			}
 		}
 	}
@@ -2350,7 +2348,6 @@ class GFForms {
 		}
 
 		if ( ! $valid_key ) {
-			return;
 			$message .= sprintf( esc_html__( '%sRegister%s your copy of Gravity Forms to receive access to automatic upgrades and support. Need a license key? %sPurchase one now%s.', 'gravityforms' ), '<a href="' . admin_url() . 'admin.php?page=gf_settings">', '</a>', '<a href="https://www.gravityforms.com">', '</a>' );
 		}
 

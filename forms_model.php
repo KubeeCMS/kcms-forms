@@ -442,7 +442,8 @@ class GFFormsModel {
 			$sort_column = 'title';
 		}
 
-		$order_by     = ! empty( $sort_column ) ? $wpdb->prepare( "ORDER BY %s %s", $sort_column, $sort_keyword ) : '';
+		$sort_column = sanitize_sql_orderby( $sort_column );
+		$order_by    = ! empty( $sort_column ) ? "ORDER BY $sort_column $sort_keyword" : '';
 
 		$sql = "SELECT f.id, f.title, f.date_created, f.is_active, 0 as entry_count, 0 view_count
                 FROM $form_table_name f
@@ -518,9 +519,10 @@ class GFFormsModel {
 		if ( ! in_array( strtolower( $sort_column ), $db_columns ) ) {
 			$sort_column = 'title';
 		}
+		$sort_column = sanitize_sql_orderby( $sort_column );
 
 		$where_clause = 'WHERE ' . join( ' AND ', $where_arr );
-		$order_by     = ! empty( $sort_column ) ? $wpdb->prepare( "ORDER BY %s %s", $sort_column, $sort_keyword ) : '';
+		$order_by     = ! empty( $sort_column ) ? "ORDER BY $sort_column $sort_keyword" : '';
 
 		// All of the pieces of this SQL statement have already gone through $wpdb->prepare, so we don't prepare it again here.
 		$sql = "SELECT f.id, f.title, f.date_created, f.is_active, 0 as entry_count, 0 view_count
@@ -1378,7 +1380,7 @@ class GFFormsModel {
 		}
 
 		foreach ( $current_fields as $field ) {
-			if ( $field->meta_key == $field_number && $field->item_index == $item_index) {
+			if ( (string) $field->meta_key === (string) $field_number && $field->item_index == $item_index) {
 				return $field->id;
 			}
 		}
@@ -4230,6 +4232,11 @@ class GFFormsModel {
 	}
 
 	public static function maybe_trim_input( $value, $form_id, $field ) {
+		
+		if ( is_null( $value ) ) {
+			return $value;
+		}
+		
 		$trim_value = apply_filters( 'gform_trim_input_value', true, $form_id, $field );
 
 		if ( $trim_value ) {
@@ -5246,7 +5253,7 @@ class GFFormsModel {
 				$result                       = self::queue_batch_field_operation( $form, $lead, $field, $lead_detail_id, $input_id, $v, $new_item_index );
 				GFCommon::log_debug( __METHOD__ . "(): Saving: {$field->label}(#{$input_id}{$item_index} - {$field->type}). Result: " . var_export( $result, 1 ) );
 				foreach ( $current_fields as $current_field ) {
-					if ( $current_field->meta_key == $input_id && $current_field->item_index == $new_item_index ) {
+					if ( (string) $current_field->meta_key === (string) $input_id && $current_field->item_index == $new_item_index ) {
 						$current_field->update = true;
 					}
 				}
